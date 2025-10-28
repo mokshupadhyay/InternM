@@ -2,19 +2,31 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>beforeunload test</title>
+  <title>beforeunload test (indirect)</title>
   <script>
-    window.onbeforeunload = function(e) {
-      e = e || window.event;
-      // Some browsers require returnValue to be set
+    let warnOnLeave = false;
+
+    // Only enable warning after user interaction
+    function enableWarning() {
+      warnOnLeave = true;
+    }
+
+    window.addEventListener('beforeunload', function (e) {
+      if (!warnOnLeave) return;
+
+      e.preventDefault();
       e.returnValue = 'You have unsaved changes.';
       return 'You have unsaved changes.';
-    };
+    });
   </script>
 </head>
 <body>
-  <h1>Test beforeunload</h1>
-  <p>Enter something or just navigate away (back button / link) to trigger the alert.</p>
+  <h1>Test beforeunload (indirect trigger)</h1>
+  <p>Type or click inside the input — then try leaving the page.</p>
+
+  <input type="text" placeholder="Type something..." oninput="enableWarning()" />
+
+  <br><br>
   <a href="https://www.google.com">Go to Google</a>
 </body>
 </html>
