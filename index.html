@@ -1,38 +1,60 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>window.open same tab vs new tab</title>
-    <script>
-      window.onbeforeunload = function() {
-        return "Changes that you made may not be saved.";
-      };
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Window Location Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      gap: 20px;
+    }
 
-      // Open same tab
-      function openYahooSameTab() {
-        window.open("https://www.yahoo.com", "_self");
-      }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-      // Open new tab
-      function openYahooNewTab() {
-        window.open("https://www.yahoo.com", "_blank");
-      }
-    </script>
-  </head>
-  <body>
-    <h2>window.open() — same tab vs new tab</h2>
+    button:hover {
+      opacity: 0.9;
+    }
 
-    <p>Click below to test how beforeunload behaves:</p>
+    .replace {
+      background-color: #007bff;
+      color: white;
+    }
 
-    <button onclick="openYahooSameTab()">Yahoo (same tab)</button>
-    <button onclick="openYahooNewTab()">Yahoo (new tab)</button>
+    .reload {
+      background-color: #28a745;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>window.location Demo</h1>
 
-    <br><br>
-    <a href="https://www.google.com">Go to Google (normal link)</a>
+  <button class="replace" onclick="window.location.replace('https://example.com')">
+    Replace current page in history
+  </button>
 
-    <p>💡 Tip:  
-      - The “same tab” button will trigger <code>onbeforeunload</code>  
-      - The “new tab” button will **not**, because the current tab stays open.
-    </p>
-  </body>
+  <button class="reload" onclick="window.location.reload()">
+    Reload current page
+  </button>
+
+  <p>
+    <strong>Note:</strong> The first button will redirect you to
+    <code>https://example.com</code> and you won’t be able to go back using the
+    browser’s Back button.
+  </p>
+</body>
 </html>
